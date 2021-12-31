@@ -21,8 +21,8 @@ const register = async (req,res)=>{
           link,
           count:1
         })
-        const token = jwt.sign({ link: user.link, email:user.email},TOKEN_KEY,{expiresIn: "7h",});
-        res.json({ message: "Registered in successfully 😊 👌", response:token });
+        const token = jwt.sign({token: user},TOKEN_KEY,{expiresIn: "7h",});
+        res.json({ message: "Registered in successfully  😊 👌", response:token });
       }
        //check the patrams and update
       const firstLogin = await User.findOne({link: req.params.id})
@@ -38,19 +38,37 @@ const register = async (req,res)=>{
 }
 
 // login user  
-// const login = async (req,res)=>{
-//     try{
-//       const { phone_number } = req.body
-//       console.log(phone_number)
-//       const user = await User.findOne({phone_number});
-//       if(user){
-//         res.status(200).json({message:"login sucessfully"})
-//       }else{
-//         res.status(400).json({message:"inavlid phone number"})
-//       }
-//     }catch(err){
-//       console.log(err)
-//     }
-// }
+const login = async (req,res)=>{
+    try{
+      const { email } = req.body
+      console.log(email)
+      const user = await User.findOne({email});
+      if(user){
+        const token = jwt.sign({token: user},TOKEN_KEY,{expiresIn: "7h",});
+        res.json({ message: "Login successfully  😊 👌", response:token });
+        // res.status(200).json({message:"login sucessfully", resp:user.link})
+      }else{  
+        res.status(400).json({message:"inavlid phone number"})
+      }
+    }catch(err){
+      console.log(err)
+    }
+}
 
-module.exports = {register};
+//for user info
+const winInfoList = async (req, res)=>{
+  console.log(req.params.link)
+  try{
+    const info = await User.find().sort([['count', 'descending']]).limit(10)
+    res.json(info)
+    // if(info){
+    //   res.json({resp:info})
+    // }else{
+    //   res.json({message:"invalid link"});
+    // }
+  }catch(err){
+    console.log(err)
+  }
+}
+
+module.exports = {register, login, winInfoList};
