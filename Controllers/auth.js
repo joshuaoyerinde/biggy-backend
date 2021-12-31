@@ -60,12 +60,7 @@ const winInfoList = async (req, res)=>{
   console.log(req.params.link)
   try{
     const info = await User.find().sort([['count', 'descending']]).limit(10)
-    res.json(info)
-    // if(info){
-    //   res.json({resp:info})
-    // }else{
-    //   res.json({message:"invalid link"});
-    // }
+    res.json({response:info});
   }catch(err){
     console.log(err)
   }
