@@ -7,7 +7,8 @@ const registration = new userSchema({
     phone:{ type: String, required:true, unique:true},
     email:{ type:String, required:true},
     count:{ type:Number},
-    link:{ type:String, required:false}
+    link:{ type:String, required:false},
+    endtime:{type:String}
 
 })
 
