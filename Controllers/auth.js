@@ -8,7 +8,7 @@ const register = async (req,res)=>{
   console.log(req.params.id);
   let currentDateObj = new Date();
   let currentminute = currentDateObj.getTime();
-  let time = currentminute + 30 * 6000
+  let time = currentminute + 60 * 6000
   console.log(time);   
   try{
     if(req.params.id){
@@ -19,7 +19,7 @@ const register = async (req,res)=>{
             res.status(400).json("Information input is Require")
       }else{
         if(firstLogin.endtime < currentminute){
-          res.json({message: "Time Up"});
+          res.status(400).json({error: "Time Up"});
         } else {
           const user = await User.create({
             name,
