@@ -8,7 +8,7 @@ const register = async (req,res)=>{
   console.log(req.params.id);
   let currentDateObj = new Date();
   let currentminute = currentDateObj.getTime();
-  let time = currentminute + 60 * 6000
+  let time = currentminute + 60 * 60000
   console.log(time);   
   try{
     if(req.params.id){
