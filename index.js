@@ -32,7 +32,7 @@ app.use(express.json());
 // initiallizing the app ......
 app.use('/api', route)
 app.get('/home', (req,res)=>{
-    res.send("joshua is good boy")
+    res.send("joshua is good boy to heroku")
 })
 
 
