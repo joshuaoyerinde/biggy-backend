@@ -19,8 +19,8 @@ const register = async (req,res)=>{
             res.status(400).json("Information input is Require")
       }else{
         if(firstLogin.endtime < currentminute){
-          res.status(400).json({error: "Time Up"});
-        } else {
+          res.status(409).json({error: "Time Up"});
+        } else{
           const user = await User.create({
             name,
             lastname, 
